@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { getApiUrl } from "@/lib/api";
 
 interface RegisterForm {
   name: string;
@@ -31,8 +32,9 @@ export default function Register() {
     e.preventDefault();
 
     try {
+      const apiUrl = getApiUrl();
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/api/auth/register`,
+        `${apiUrl}/api/auth/register`,
         {
           method: "POST",
           headers: {

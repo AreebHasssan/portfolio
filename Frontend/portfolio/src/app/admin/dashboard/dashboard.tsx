@@ -17,6 +17,7 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
+import { getApiUrl } from "@/lib/api";
 
 interface Project {
   _id: string;
@@ -78,7 +79,7 @@ export default function Dashboard() {
   const fetchData = async () => {
     setLoading(true);
     try {
-      const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
+      const apiUrl = getApiUrl();
 
       if (activeTab === "projects") {
         const res = await fetch(`${apiUrl}/api/projects`);
@@ -122,7 +123,7 @@ export default function Dashboard() {
     if (!confirm("Are you sure you want to delete this item?")) return;
 
     try {
-      const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
+      const apiUrl = getApiUrl();
       let deleteUrl = "";
 
       if (activeTab === "projects") {
@@ -177,7 +178,7 @@ export default function Dashboard() {
     setSaving(true);
 
     try {
-      const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
+      const apiUrl = getApiUrl();
       let url = "";
       let options: RequestInit = {};
 

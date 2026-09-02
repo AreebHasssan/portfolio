@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useRouter, usePathname } from "next/navigation";
 import { LayoutDashboard, UserPlus, LogOut } from "lucide-react";
+import { getApiUrl } from "@/lib/api";
 
 export default function Sidebar() {
   const router = useRouter();
@@ -10,7 +11,8 @@ export default function Sidebar() {
 
   const handleLogout = async () => {
     try {
-      await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/auth/logout`, {
+      const apiUrl = getApiUrl();
+      await fetch(`${apiUrl}/api/auth/logout`, {
         method: "POST",
         credentials: "include",
       });

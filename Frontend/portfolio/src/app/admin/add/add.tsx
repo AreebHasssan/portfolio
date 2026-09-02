@@ -4,6 +4,7 @@ import { useState } from "react";
 import type { ChangeEvent, FormEvent, KeyboardEvent, MouseEvent } from "react";
 import { X, Loader2 } from "lucide-react";
 import Image from "next/image";
+import { getApiUrl } from "@/lib/api";
 
 export default function Add() {
   const [skillInput, setSkillInput] = useState<string>("");
@@ -64,7 +65,7 @@ export default function Add() {
     setSubmittingProject(true);
 
     try {
-      const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
+      const apiUrl = getApiUrl();
       const res = await fetch(`${apiUrl}/api/projects`, {
         method: "POST",
         headers: {
@@ -102,7 +103,7 @@ export default function Add() {
     setSubmittingTestimonial(true);
 
     try {
-      const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
+      const apiUrl = getApiUrl();
       const formData = new FormData();
       formData.append("image", testimonialFile);
       formData.append("name", testimonialName || "Anonymous");
@@ -141,7 +142,7 @@ export default function Add() {
     setSubmittingSkills(true);
 
     try {
-      const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
+      const apiUrl = getApiUrl();
 
       // Post skills sequentially or in parallel
       const promises = skills.map(async (name) => {

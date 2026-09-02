@@ -16,6 +16,7 @@ import {
   ArrowRight,
 } from "lucide-react";
 import { FaGithub, FaLinkedin } from "react-icons/fa";
+import { getApiUrl } from "@/lib/api";
 
 interface Project {
   _id: string;
@@ -75,8 +76,7 @@ export default function Portfolio() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const apiUrl =
-          process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
+        const apiUrl = getApiUrl();
 
         const [resProj, resSkills, resTestimonials] = await Promise.all([
           fetch(`${apiUrl}/api/projects`),
@@ -676,9 +676,7 @@ export default function Portfolio() {
                   e.preventDefault();
                   setSendingContact(true);
                   try {
-                    const apiUrl =
-                      process.env.NEXT_PUBLIC_API_URL ||
-                      "http://localhost:8000";
+                    const apiUrl = getApiUrl();
                     const res = await fetch(`${apiUrl}/api/messages`, {
                       method: "POST",
                       headers: { "Content-Type": "application/json" },

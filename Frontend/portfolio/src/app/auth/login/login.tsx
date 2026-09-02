@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { getApiUrl } from "@/lib/api";
 
 interface LoginForm {
   email: string;
@@ -33,8 +34,9 @@ export default function Login() {
       setLoading(true);
       setError("");
 
+      const apiUrl = getApiUrl();
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/api/auth/login`,
+        `${apiUrl}/api/auth/login`,
         {
           method: "POST",
           headers: {
