@@ -47,7 +47,14 @@ export default function Login() {
         },
       );
 
-      const data = await res.json();
+      const contentType = res.headers.get("content-type");
+      let data: any = {};
+
+      if (contentType && contentType.includes("application/json")) {
+        data = await res.json();
+      } else if (!res.ok) {
+        throw new Error(`Backend service unreachable (${res.status} Bad Gateway). Please check if backend server is running.`);
+      }
 
       if (!res.ok) {
         throw new Error(data.message || "Login failed");
