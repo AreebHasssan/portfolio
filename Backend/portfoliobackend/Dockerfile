@@ -1,21 +1,14 @@
-# Base stage: install dependencies
+# Build stage
 FROM node:18-alpine AS base
-
 WORKDIR /app
-
 COPY package*.json ./
-
-RUN npm install --omit=dev
-
+RUN npm install
 COPY . .
 
-# Production stage using Distroless Node.js
+# Run stage
 FROM gcr.io/distroless/nodejs18-debian12
-
 WORKDIR /app
-
+ENV PORT=5000
 COPY --from=base /app ./
-
 EXPOSE 5000
-
 CMD ["server.js"]

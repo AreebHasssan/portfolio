@@ -25,6 +25,7 @@ const allowedOrigins = [
   process.env.CLIENT_URL,
   "http://localhost:3000",
   "http://127.0.0.1:3000",
+  "https://portfolio-fawn-pi-62.vercel.app",
   "https://portfolio-lilac-two-90.vercel.app",
 ].filter(Boolean);
 

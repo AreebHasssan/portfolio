@@ -6,12 +6,12 @@ metadata:
     # Essential for backends/APIs to allow cross-origin requests:
     nginx.ingress.kubernetes.io/enable-cors: "true"
     nginx.ingress.kubernetes.io/cors-allow-methods: "PUT, GET, POST, OPTIONS, DELETE"
-    nginx.ingress.kubernetes.io/cors-allow-origin: "*"
+    nginx.ingress.kubernetes.io/cors-allow-origin: "https://portfolio-fawn-pi-62.vercel.app"
     nginx.ingress.kubernetes.io/cors-allow-credentials: "true"
 spec:
   ingressClassName: nginx
   rules:
-  - host: api.portfolio.local
+  - host: api.portfolio.com
     http:
       paths:
       - path: /
@@ -21,3 +21,8 @@ spec:
             name: portfolio-service
             port:
               number: 5000
+
+
+
+
+#then create ingress controller
