@@ -20,5 +20,12 @@ spec:
         imagePullPolicy: Always
         ports:
         - containerPort: 5000
+        env:
+        - name: DB_URL
+          value: "mongodb+srv://Areeb:123456qwe@cluster0.jljyaaj.mongodb.net/mediformers"
+        - name: PORT
+          value: "5000"
+        - name: JWT_SECRET
+          value: "your_jwt_secret_key"
 
 
