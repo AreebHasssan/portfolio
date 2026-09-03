@@ -37,7 +37,7 @@ jobs:
           method: kubeconfig
           kubeconfig: ${{ secrets.KUBECONFIG_DATA }}
 
-      - name: Deploy update to Kubernetes
+      - name: Deploy update to Kubernetes VM
         run: |
           kubectl apply -f Backend/portfoliobackend/k8s/manifests/
           kubectl rollout restart deployment portfolio-backend
