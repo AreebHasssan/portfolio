@@ -25,7 +25,7 @@ const app = express();
 
 mongoose
   .connect(process.env.DB_URL)
-  .then(() => console.log("Connected to MongoDB altas. io "))
+  .then(() => console.log("Connected to MongoDB altas.i0 "))
   .catch((err) => console.log("Error connecting to MongoDB altas please check it:", err));
 
 const allowedOrigins = [
