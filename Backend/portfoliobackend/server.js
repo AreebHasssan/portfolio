@@ -1,6 +1,7 @@
 
 const crypto = require('crypto');
 globalThis.crypto = crypto;
+
 const dotenv = require("dotenv");
 const path = require("path");
 
@@ -24,7 +25,7 @@ const app = express();
 
 mongoose
   .connect(process.env.DB_URL)
-  .then(() => console.log("Connected to MongoDB"))
+  .then(() => console.log("Connected to MongoDB altas "))
   .catch((err) => console.log("Error connecting to MongoDB:", err));
 
 const allowedOrigins = [
@@ -67,6 +68,6 @@ app.get("/", (req, res) => {
 const PORT = process.env.PORT || 8000;
 
 app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+  console.log(`Server running on the port is  ${PORT}`);
   console.log(`Allowed CORS origins: ${allowedOrigins.join(", ")}`);
 });
