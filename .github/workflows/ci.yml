@@ -37,7 +37,19 @@ jobs:
           method: kubeconfig
           kubeconfig: ${{ secrets.KUBECONFIG_DATA }}
 
+      - name: Check Kubernetes API endpoint
+        id: kube-endpoint
+        run: |
+          SERVER="$(kubectl config view --minify -o jsonpath='{.clusters[0].cluster.server}')"
+          if [[ "$SERVER" =~ (127\.0\.0\.1|localhost) ]]; then
+            echo "reachable=false" >> "$GITHUB_OUTPUT"
+            echo "::warning::Skipping deploy: kubeconfig server '$SERVER' is not reachable from GitHub-hosted runners."
+          else
+            echo "reachable=true" >> "$GITHUB_OUTPUT"
+          fi
+
       - name: Deploy update to Kubernetes VM
+        if: steps.kube-endpoint.outputs.reachable == 'true'
         run: |
           kubectl apply -f Backend/portfoliobackend/k8s/manifests/
           kubectl rollout restart deployment portfolio-backend
