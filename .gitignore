@@ -2,11 +2,11 @@
 .env
 .env.*
 .env.local
-!.env.example
+.env.example
 secret.yaml
 secrets.yaml
-!secret.yaml.example
-!.secrets.yaml.example
+secret.yaml.example
+.secrets.yaml.example
 *.pem
 *.key
 *.pub
