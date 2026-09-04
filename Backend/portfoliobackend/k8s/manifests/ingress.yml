@@ -18,7 +18,7 @@ spec:
         pathType: Prefix
         backend:
           service:
-            name: portfolio-service
+            name: portfolio-backend-service
             port:
               number: 5000
 

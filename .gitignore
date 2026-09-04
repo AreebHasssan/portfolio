@@ -1,0 +1,49 @@
+# Environment & Secrets
+.env
+.env.*
+.env.local
+!.env.example
+*.pem
+*.key
+*.pub
+id_rsa*
+*.crt
+*.cer
+
+# Ansible Inventory & Configuration
+inventory.ini
+inventory.int
+*.ini
+!ansible/ansible.cfg
+
+# Terraform Secrets & State
+*.tfstate
+*.tfstate.*
+*.tfvars
+*.tfvars.json
+.terraform/
+.terraform.lock.hcl
+
+# Node & Package Managers
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+logs/
+*.log
+
+# Framework Build Outputs
+.next/
+out/
+build/
+dist/
+coverage/
+
+# OS & Editor Files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+*.swo

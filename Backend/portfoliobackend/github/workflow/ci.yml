@@ -1,0 +1,34 @@
+name: Build and Deploy
+
+on:
+  push:
+    branches:
+      - main
+  path-ignore:
+     - "README.md"
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERUSERNAME }}
+          password: ${{ secrets.DOCKERPASSWORD }}
+
+      - name: Build Docker image
+        run: |
+          docker build -t areebhassan/portfolio:latest .
+
+      - name: Push Docker image
+        run: |
+          docker push areebhassan/portfolio:latest
+
+      - name: Update Kubernetes
+        run: |
+          kubectl rollout restart deployment portfolio
