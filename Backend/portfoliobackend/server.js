@@ -25,13 +25,11 @@ const app = express();
 
 mongoose
   .connect(process.env.DB_URL)
-  .then(() => console.log("Connected to MongoDB altas.i0 "))
+  .then(() => console.log("Connected to MongoDB altas.i0 code "))
   .catch((err) => console.log("Error connecting to MongoDB altas please check it on :", err));
 
 const allowedOrigins = [
   process.env.CLIENT_URL,
-  "http://localhost:3000",
-  "http://127.0.0.1:3000",
   "https://portfolio-fawn-pi-62.vercel.app",
   "https://portfolio-lilac-two-90.vercel.app",
 ].filter(Boolean);
