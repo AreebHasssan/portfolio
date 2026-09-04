@@ -1,0 +1,6 @@
+---
+- name: Configure Azure Node with Docker and K8s
+  hosts: azure_vms
+  become: true
+  roles:
+    - ansible

@@ -1,0 +1,70 @@
+---
+- name: Ensure prerequisite packages are installed
+  ansible.builtin.apt:
+    name:
+      - curl
+      - ca-certificates
+      - snapd
+    state: present
+    update_cache: yes
+
+- name: Check if K3s Kubernetes Cluster is installed
+  ansible.builtin.stat:
+    path: /usr/local/bin/k3s
+  register: k3s_binary
+
+- name: Install K3s (Kubernetes Cluster & Control Plane)
+  ansible.builtin.shell: |
+    curl -sfL https://get.k3s.io | sh -s - --write-kubeconfig-mode 644
+  when: not k3s_binary.stat.exists
+
+- name: Ensure K3s service is running and enabled
+  ansible.builtin.systemd:
+    name: k3s
+    state: started
+    enabled: yes
+
+- name: Ensure .kube directory exists for azureuser
+  ansible.builtin.file:
+    path: /home/azureuser/.kube
+    state: directory
+    owner: azureuser
+    group: azureuser
+    mode: '0755'
+
+- name: Copy K3s kubeconfig to azureuser's .kube/config
+  ansible.builtin.copy:
+    src: /etc/rancher/k3s/k3s.yaml
+    dest: /home/azureuser/.kube/config
+    remote_src: yes
+    owner: azureuser
+    group: azureuser
+    mode: '0600'
+
+- name: Set KUBECONFIG environment variable in .bashrc
+  ansible.builtin.lineinfile:
+    path: /home/azureuser/.bashrc
+    line: "export KUBECONFIG=/home/azureuser/.kube/config"
+    state: present
+
+- name: Create symlink for kubectl CLI
+  ansible.builtin.file:
+    src: /usr/local/bin/k3s
+    dest: /usr/local/bin/kubectl
+    state: link
+    force: no
+  ignore_errors: yes
+
+- name: Install k9s terminal console (via Snap)
+  community.general.snap:
+    name: k9s
+    classic: yes
+    state: present
+  ignore_errors: yes
+
+- name: Deploy Kubernetes Web Dashboard Console
+  ansible.builtin.command: >
+    /usr/local/bin/kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.7.0/aio/deploy/recommended.yaml
+  register: dashboard_deploy
+  changed_when: "'created' in dashboard_deploy.stdout or 'configured' in dashboard_deploy.stdout"
+  ignore_errors: yes

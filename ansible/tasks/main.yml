@@ -1,0 +1,9 @@
+---
+# tasks/main.yml
+- name: Reset and clean Docker
+  ansible.builtin.include_tasks: restdocker.yml
+  tags: [docker, reset]
+
+- name: Install Kubernetes tools and console (k9s)
+  ansible.builtin.include_tasks: installk8s.yml
+  tags: [k8s, kubectl]

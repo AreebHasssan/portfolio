@@ -1,0 +1,24 @@
+---
+- name: Ensure Docker and dependencies are installed
+  ansible.builtin.apt:
+    name:
+      - docker.io
+      - docker-compose-plugin
+    state: present
+    update_cache: yes
+
+- name: Add azureuser to docker group
+  ansible.builtin.user:
+    name: azureuser
+    groups: docker
+    append: yes
+
+- name: Restart Docker service
+  ansible.builtin.systemd:
+    name: docker
+    state: restarted
+    enabled: true
+
+- name: Prune unused Docker system data
+  ansible.builtin.command: docker system prune -af --volumes
+  changed_when: true
