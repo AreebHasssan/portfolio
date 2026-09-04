@@ -27,6 +27,8 @@ inventory.int
 *.tfvars.json
 .terraform/
 .terraform.lock.hcl
+terraform/
+
 
 # Node & Package Managers
 node_modules/
