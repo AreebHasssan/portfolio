@@ -39,6 +39,6 @@ jobs:
 
       - name: Deploy update to Kubernetes VM
         run: |
-          kubectl apply -f Backend/portfoliobackend/k8s/manifests/
+          kubectl apply -f Backend/portfoliobackend/k8s/manifests/deployment.yml
           kubectl rollout restart deployment portfolio-backend
           kubectl rollout status deployment portfolio-backend --timeout=120s
