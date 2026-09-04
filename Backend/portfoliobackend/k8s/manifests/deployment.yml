@@ -22,8 +22,14 @@ spec:
         - containerPort: 5000
         env:
         - name: DB_URL
-          value: "mongodb://mongo-service:27017/mediformers"
+          valueFrom:
+            secretKeyRef:
+              name: portfolio-backend-secret
+              key: DB_URL
         - name: PORT
           value: "5000"
         - name: JWT_SECRET
-          value: "your_jwt_secret_key"
+          valueFrom:
+            secretKeyRef:
+              name: portfolio-backend-secret
+              key: JWT_SECRET

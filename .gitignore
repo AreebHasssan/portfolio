@@ -3,6 +3,10 @@
 .env.*
 .env.local
 !.env.example
+secret.yaml
+secrets.yaml
+!secret.yaml.example
+!.secrets.yaml.example
 *.pem
 *.key
 *.pub
